@@ -13,7 +13,7 @@ const defaultFormData = {
     Password: "",
     ConfirmPassword: "",
     ZipCode: "",
-    ProfileImage: null
+
 
 }
 
@@ -22,7 +22,7 @@ export default function Signup() {
     const [formData, setFormData] = useState(defaultFormData);
     const [successfull, setSuccessfull] = useState(false);
     const [errors, setErrors] = useState([]);
-    const [selectedImage, setSelectedImage] = useState(null)
+
 
     const validateInputs = () => {
         let hasErros = false;
@@ -57,28 +57,18 @@ export default function Signup() {
 
         }
         else {
-            let myurl = "http://localhost:5000/api/v1/users"
+            let myurl = "http://localhost:5000/api/users"
             axios.post(myurl, formData).then(res => {
                 console.log(res.data)
                 setSuccessfull(true)
             })
 
             setFormData(defaultFormData)
-            setSelectedImage(null)
         }
 
     }
 
-    const handleFileInput = (e) => {
-        const file = e.target.files[0]
-        const imageFormData = new FormData();
-        imageFormData.append("profileImage", file, file.name)
-        setSelectedImage(URL.createObjectURL(file))
-        axios.post("http://localhost:5000/api/v1/imageUpload", imageFormData)
-            .then(res => {
-                setFormData({ ...formData, ProfileImage: res.data.data._id })
-            })
-    }
+
 
     if (successfull) {
         return (<div class="bg-purple-600 bg-opacity-75 h-screen text-center justify-center" >
@@ -87,11 +77,11 @@ export default function Signup() {
                 <CssBaseline />
 
                 <Box className="rounded-lg shadow-lg pt-6" sx={{ bgcolor: '#ffff', height: '80vh' }} >
-                    <header className=" text-2xl font-extrabold">Tekdi technologies user Registration</header>
+                    <header className=" text-2xl font-extrabold">VITASOFT TECHNOLOGIES USER REGISTRATION </header>
                     <div class=" justify-center mt-8 content-center">
                         User Registered Successfully
                         <Button variant="outlined" color="secondary" onClick={() => setSuccessfull(false)} > Create Another User </Button>
-                                <br/>
+                        <br />
                         <Link to="/allusers">
                             <Button variant="outlined" color="secondary" > See Existing  User </Button>
                         </Link>
@@ -105,7 +95,7 @@ export default function Signup() {
     return (
         <>
             <div className="text-center justify-center py-6 bg-gray-700">
-                <header className=" text-2xl font-extrabold text-white">Tekdi technologies user Registration</header>
+                <header className=" text-2xl font-extrabold text-white">VITASOFT TECHNOLOGIES USER REGISTRATION</header>
 
             </div>
 
@@ -116,10 +106,7 @@ export default function Signup() {
 
                     <Box className="rounded-lg shadow-lg p-6 " sx={{ bgcolor: '#ffff' }} >
                         <div class=" justify-center  content-center">
-                            <div className="content-center justify-center">
-                                {selectedImage && <img className="w-40 ml-40" src={selectedImage} />}
-                            </div>
-                            {/* <input type="file" name="profileImage" onChange={handleFileInput} /> */}
+
                             <form onSubmit={(e) => handleSubmit(e)}>
                                 <div className=" mt-2">
                                     <br />
@@ -139,9 +126,46 @@ export default function Signup() {
                                         required
                                         type="name"
                                         size="small"
-                                        label="Name"
-                                        name="Name"
-                                        value={formData.Name}
+                                        label="First Name"
+                                        name="First_Name"
+                                        value={formData.First_Name}
+                                        onChange={handleChange}
+                                    />
+                                </div><br />
+                                <div >
+
+                                    <TextField
+                                        required
+                                        type="name"
+                                        size="small"
+                                        label="Middle Name"
+                                        name="Middel_Name"
+                                        value={formData.Middle_Name}
+                                        onChange={handleChange}
+                                    />
+                                </div><br />
+                                
+                                <div >
+
+                                    <TextField
+                                        required
+                                        type="name"
+                                        size="small"
+                                        label="Last Name"
+                                        name="Last_Name"
+                                        value={formData.Last_Name}
+                                        onChange={handleChange}
+                                    />
+                                </div><br />
+                                <div >
+
+                                    <TextField
+                                        required
+                                        type="name"
+                                        size="small"
+                                        label="email"
+                                        name="Email"
+                                        value={formData.Email}
                                         onChange={handleChange}
                                     />
                                 </div><br />
@@ -177,10 +201,71 @@ export default function Signup() {
                                     <TextField
                                         required
                                         size="small"
+                                        type="String"
+                                        label="Address"
+                                        name="Address"
+                                        value={formData.Address}
+                                        onChange={handleChange}
+                                    />
+                                </div>  <br />
+                                <div>
+
+                                    <TextField
+                                        required
+                                        size="small"
+                                        type="name"
+                                        label="Country"
+                                        name="Country"
+                                        value={formData.Country}
+                                        onChange={handleChange}
+                                    />
+                                </div>  <br />
+                                <div>
+
+                                    <TextField
+                                        required
+                                        size="small"
+                                        type="name"
+                                        label="State"
+                                        name="State"
+                                        value={formData.State}
+                                        onChange={handleChange}
+                                    />
+                                </div> <br />
+                                <div>
+
+                                    <TextField
+                                        required
+                                        size="small"
                                         type="Number"
                                         label="Zip Code"
                                         name="ZipCode"
                                         value={formData.ZipCode}
+                                        onChange={handleChange}
+                                    />
+                                </div>  <br />
+                                <div>
+
+                                    <TextField
+                                        required
+                                        size="small"
+                                        type="Number"
+                                        label="Height"
+                                        name="Height"
+                                        value={formData.Height}
+                                        onChange={handleChange}
+                                    />
+                                </div>  <br />
+
+                                <div>
+
+                                    <TextField
+                                        required
+                                        size="small"
+                                        type="Number"
+                                        label="Weight"
+                                        name="Weight"
+                                        value={formData.Weight}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -189,19 +274,9 @@ export default function Signup() {
 
                                 {/*  */}
                                 <br />
-                                <div className="w-60 ml-32 pb-4">
 
-                                    <TextField
-                                        required
-                                        size="small"
-                                        type="file"
-                                        name="ZipCode"
-                                        // value={formData.ZipCode}
-                                        onChange={handleFileInput}
-                                    />
-                                </div>
                                 <Button className="shadow-xl hover:bg-blue-700" variant="outlined" type="submit" color="secondary" > Submit </Button>
-                            </form><br/>
+                            </form><br />
                             <Link to="/allusers">
                                 <Button variant="outlined" color="secondary" > Existing User </Button>
 
